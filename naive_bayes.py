@@ -7,7 +7,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
-# from autocorrect import Speller
+from autocorrect import Speller
 
 def hasNumbers(inputString):
     return any(char.isdigit() for char in inputString)
@@ -19,14 +19,19 @@ def remove_symbol(word):
     return word
 
 def get_words(message):
-    ps = PorterStemmer()
+    # ps = PorterStemmer()
+    spell = Speller(lang='en')
     stop_words = set(stopwords.words('english'))
     result = []
     for word in word_tokenize(message):
+        word = spell(word)
         clean_word = remove_symbol(word)
         # clean_word = ps.stem(clean_word)
         if not clean_word in stop_words:
-            result.append(clean_word)
+            if hasNumbers(clean_word):
+                result.append('1')
+            else:
+                result.append(clean_word)
     return result
 
 def create_dictionary(messages):

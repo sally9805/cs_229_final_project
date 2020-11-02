@@ -24,13 +24,15 @@ for sentence in messages:
 	tokens.append(naive_bayes.get_words(sentence))
 model = gensim.models.Word2Vec(tokens, size=vector_size, min_count=1, workers=4, sg=1)
 
+# print(model.wv.vocab)
+
 output = []
 mean = np.zeros(vector_size)
 for token in tokens: # len(tokens) = 668
 	mean = np.zeros(vector_size)
 	for word in token:
 		ind = model.wv.vocab[word].index # dict key: 'female', value: self defined object, ind 9
-		mean = np.add(mean, model.wv.syn0[ind]) # list: syn0[9] = female vector
+		mean = np.add(mean, model.wv.vectors[ind]) # list: syn0[9] = female vector
 	length = 1
 	if len(token) != 0:
 		length = len(token)
