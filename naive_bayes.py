@@ -7,6 +7,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
+# from autocorrect import Speller
 
 def hasNumbers(inputString):
     return any(char.isdigit() for char in inputString)
@@ -23,9 +24,9 @@ def get_words(message):
     result = []
     for word in word_tokenize(message):
         clean_word = remove_symbol(word)
-        stemmed_word = ps.stem(clean_word)
-        if not stemmed_word in stop_words:
-            result.append(stemmed_word)
+        # clean_word = ps.stem(clean_word)
+        if not clean_word in stop_words:
+            result.append(clean_word)
     return result
 
 def create_dictionary(messages):
