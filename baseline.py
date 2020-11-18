@@ -26,8 +26,8 @@ X_train, X_test, y_train, y_test = train_test_split(messages, labels, test_size=
 # Step 3: Use Model
 nb_model = naive_bayes.train_naive_bayes_model(X_train, y_train)
 # print(nb_model)
-predicted = naive_bayes.predict(nb_model, X_test)
-print(metrics.confusion_matrix(y_test, predicted, labels=[0,1]))
+predicted = naive_bayes.predict(nb_model, X_train)
+print(metrics.confusion_matrix(y_train, predicted, labels=[0,1]))
 
 # Printing the precision and recall, among other metrics
-print(metrics.classification_report(y_test, predicted, labels=[0,1]))
+print(metrics.classification_report(y_train, predicted, labels=[0,1]))
